@@ -1,7 +1,7 @@
 #' Représentation graphique de la relevance
 #' Représentation d'une couche caché
 #' Les fléches correspondent à la distribution de 50% de la relevance
-#' @param relevance une matrice
+#' @param relevance une matrice contenant les valeurs de relevance des neurones
 #'
 #' @import ggplot2
 #' @import tidyr
