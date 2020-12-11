@@ -19,7 +19,7 @@ lrp<-function(relevance){
     theme(axis.title.x=element_blank(),axis.text.x=element_blank(),axis.ticks.x=element_blank(),axis.title.y = element_blank())+
     guides(fill=FALSE)+scale_y_continuous(trans = "reverse")+
     geom_point(aes(x=0.8,y=(nrow(relevance)/2)),size=6)+xlim(-1,1)+
-    annotate(geom='text',x=0.9,y=(nrow(relevance)/2)+1,label=paste('Relevance = ',round(sum(relevance$V1),1)))->legraph
+    annotate(geom='text',x=0.85,y=(nrow(relevance)/2)+1,label=paste('Relevance = ',round(sum(relevance$V1),1)))->legraph
 
   relevance %>% slice_max(V1,n=nrow(relevance))->certainesfleches
 somme=j=0
@@ -36,7 +36,8 @@ for(i in 1:nrow(relevance)){
   }
 
 }
-legraph
+legraph<-legraph+labs(title="Distribution de 50% de la relevance à travers une couche cachée"
+                      )
 
 return(legraph)
 }
