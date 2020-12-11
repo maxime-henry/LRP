@@ -8,6 +8,7 @@
 #' @import forcats
 #' @import ggforce
 #' @import dplyr
+#' @return un graphique de couche cachées
 #' @export
 
 

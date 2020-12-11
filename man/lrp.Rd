@@ -11,6 +11,9 @@ lrp(relevance)
 \arguments{
 \item{relevance}{une matrice}
 }
+\value{
+un graphique de couche cachées
+}
 \description{
 Représentation graphique de la relevance
 Représentation d'une couche caché
