@@ -6,10 +6,12 @@
 Représentation d'une couche caché
 Les fléches correspondent à la distribution de 50\% de la relevance}
 \usage{
-lrp(relevance)
+lrp(relevance, resuh)
 }
 \arguments{
 \item{relevance}{une matrice contenant les valeurs de relevance des neurones}
+
+\item{resuh}{une matrice contenant la relevance pour chacune des variables}
 }
 \value{
 un graphique de couche cachées

@@ -2,6 +2,7 @@
 #' Représentation d'une couche caché
 #' Les fléches correspondent à la distribution de 50% de la relevance
 #' @param relevance une matrice contenant les valeurs de relevance des neurones
+#' @param resuh une matrice contenant la relevance pour chacune des variables
 #'
 #' @import ggplot2
 #' @import tidyr
@@ -14,13 +15,13 @@
 
 
 
-lrp<-function(relevance){
+lrp<-function(relevance,resuh){
   relevance %>% ggplot(aes(y=as.numeric(names))) + geom_point(aes(x=V1-V1,color=-V1,size=6),stat='identity',alpha=0.7,show.legend = FALSE)+
   theme_minimal()+
     theme(axis.title.x=element_blank(),axis.text.x=element_blank(),axis.ticks.x=element_blank(),axis.title.y = element_blank())+
     guides(fill=FALSE)+scale_y_continuous(trans = "reverse")+
     geom_point(aes(x=0.8,y=(nrow(relevance)/2)),size=6)+xlim(-1,1)+
-    annotate(geom='text',x=0.85,y=(nrow(relevance)/2)+1,label=paste('Relevance = ',round(sum(relevance$V1),1)))->legraph
+    annotate(geom='text',x=0.85,y=(nrow(relevance)/2)+2.5,label=paste('Relevance = ',round(sum(relevance$V1),1)))->legraph
 
 relevance %>% mutate(alpha=rescale(V1))->certainesfleches
 
@@ -30,6 +31,18 @@ for(i in 1:nrow(relevance)){
   }
 }
 legraph<-legraph+labs(title="Distribution de la relevance a travers une couche cachee")
+
+Relevance<-as.data.frame(rowSums(resuh))
+Relevance %>% rename(Somme='rowSums(resuh)') %>% mutate(var=rownames(Relevance))  %>% slice_max(order_by=Somme,n=10) %>% mutate(alpha=rescale(Somme))->variables
+
+
+
+for(i in 1:nrow(variables)){
+
+  legraph<-legraph+annotate(geom='text',x=-0.8,y=i+5,label=variables[i,2])
+
+
+}
 
 return(legraph)
 }
