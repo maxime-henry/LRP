@@ -19,6 +19,7 @@ lrp<-function(relevance,resuh){
   relevance %>% ggplot(aes(y=as.numeric(names))) + geom_point(aes(x=V1-V1,color=-V1,size=6),stat='identity',alpha=0.7,show.legend = FALSE)+
   theme_minimal()+
     theme(axis.title.x=element_blank(),axis.text.x=element_blank(),axis.ticks.x=element_blank(),axis.title.y = element_blank())+
+    theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank())+
     guides(fill=FALSE)+scale_y_continuous(trans = "reverse")+
     geom_point(aes(x=0.8,y=(nrow(relevance)/2)),size=6)+xlim(-1,1)+
     annotate(geom='text',x=0.85,y=(nrow(relevance)/2)+2.5,label=paste('Relevance = ',round(sum(relevance$V1),1)))->legraph
