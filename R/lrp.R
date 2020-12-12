@@ -8,6 +8,7 @@
 #' @import forcats
 #' @import ggforce
 #' @import dplyr
+#' @import scales
 #' @return un graphique de couche cachées
 #' @export
 
@@ -21,23 +22,16 @@ lrp<-function(relevance){
     geom_point(aes(x=0.8,y=(nrow(relevance)/2)),size=6)+xlim(-1,1)+
     annotate(geom='text',x=0.85,y=(nrow(relevance)/2)+1,label=paste('Relevance = ',round(sum(relevance$V1),1)))->legraph
 
-  relevance %>% slice_max(V1,n=nrow(relevance))->certainesfleches
-somme=j=0
-while(somme < sum(relevance$V1)/2){
-  j=j+1
-  somme=somme+certainesfleches[j,2]
-}
-relevance %>% slice_max(V1,n=j)->certainesfleches
+relevance %>% mutate(alpha=rescale(V1))->certainesfleches
 
 for(i in 1:nrow(relevance)){
-
   if(i %in% certainesfleches$names == TRUE){
-    legraph<-legraph+geom_segment(aes_string(x = 0.7, y =(nrow(relevance)/2) , yend = i, xend = 0.05), arrow = arrow(length = unit(0.3, "cm")))
+    legraph<-legraph+annotate(geom='segment',x = 0.7, y =(nrow(relevance)/2) , yend = i, xend = 0.05,alpha=certainesfleches[i,3],size=1, arrow = arrow(length = unit(0.3, "cm")))
   }
-
 }
-legraph<-legraph+labs(title="Distribution de 50% de la relevance à travers une couche cachée"
-                      )
+legraph<-legraph+labs(title="Distribution de la relevance a travers une couche cachee")
 
 return(legraph)
 }
+
+

@@ -9,7 +9,7 @@ Les fléches correspondent à la distribution de 50\% de la relevance}
 lrp(relevance)
 }
 \arguments{
-\item{relevance}{une matrice}
+\item{relevance}{une matrice contenant les valeurs de relevance des neurones}
 }
 \value{
 un graphique de couche cachées

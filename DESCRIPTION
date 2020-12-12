@@ -17,4 +17,4 @@ Suggests:
     knitr,
     rmarkdown
 VignetteBuilder: knitr
-Imports: ggplot2,tidyr,forcats,ggforce,dplyr
+Imports: ggplot2,tidyr,forcats,ggforce,dplyr,scales
