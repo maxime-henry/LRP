@@ -55,7 +55,7 @@ resuh1<-as.data.frame(resuh1)
 
     sumpoids<-sum(nodepoids)
     for(i in 1:ncol(train)){
-      resuh[i,j]=nodeR*(nodepoids[i]/sumpoids)
+      resuh[i,j]=nodeR*(nodepoids[j]/sumpoids)
     }}
   rownames(resuh)=rownames(poidsinput)
 
