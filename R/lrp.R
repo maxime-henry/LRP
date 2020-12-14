@@ -11,6 +11,7 @@
 #' @import ggforce
 #' @import dplyr
 #' @import scales
+#' @import keras
 #' @return un graphique de couche cachées
 #' @export
 
@@ -43,7 +44,7 @@ lrp<-function(test,model,individu){
 
   resuh1=matrix(ncol=1,nrow=nrow(tab))
   for(i in 1:nrow(tab)){
-    resuh1[i]=noeud2(poidsoutput[i,2]/poidsoutput2sum)
+    resuh1[i]=noeud2*(poidsoutput[i,2]/poidsoutput2sum)
   }
 
   resuh=matrix(ncol=nrow(tab),nrow=ncol(train))
@@ -53,7 +54,7 @@ lrp<-function(test,model,individu){
 
     sumpoids<-sum(nodepoids)
     for(i in 1:ncol(train)){
-      resuh[i,j]=nodeR(nodepoids[i]/sumpoids)
+      resuh[i,j]=nodeR*(nodepoids[i]/sumpoids)
     }}
   rownames(resuh)=rownames(poidsinput)
 
