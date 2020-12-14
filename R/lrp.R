@@ -46,6 +46,7 @@ lrp<-function(test,model,individu){
   for(i in 1:nrow(tab)){
     resuh1[i]=noeud2*(poidsoutput[i,2]/poidsoutput2sum)
   }
+resuh1<-as.data.frame(resuh1)
 
   resuh=matrix(ncol=nrow(tab),nrow=ncol(train))
   for(j in 1:nrow(tab)){
@@ -58,7 +59,7 @@ lrp<-function(test,model,individu){
     }}
   rownames(resuh)=rownames(poidsinput)
 
-relevance=resuh1
+relevance<-resuh1
   relevance %>% ggplot(aes(y=as.numeric(names))) + geom_point(aes(x=V1-V1,color=-V1,size=6),stat='identity',alpha=0.7,show.legend = FALSE)+
   theme_minimal()+
     theme(axis.title.x=element_blank(),axis.text.x=element_blank(),axis.text.y=element_blank(),axis.ticks.x=element_blank(),axis.title.y = element_blank())+
