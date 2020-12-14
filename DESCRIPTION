@@ -1,6 +1,6 @@
 Package: LRP
 Title: Layer-wise Relevance Propagation
-Version: 0.0.0.9000
+Version: 0.0.0.9001
 Authors@R: 
     person(given = "Maxime",
            family = "HENRY",

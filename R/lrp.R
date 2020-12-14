@@ -58,7 +58,7 @@ resuh1<-as.data.frame(resuh1)
       resuh[i,j]=nodeR*(nodepoids[j]/sumpoids)
     }}
   rownames(resuh)=rownames(poidsinput)
-
+  resuh1 <- data.frame(names = row.names(resuh1), resuh1)
 relevance<-resuh1
   relevance %>% ggplot(aes(y=as.numeric(names))) + geom_point(aes(x=V1-V1,color=-V1,size=6),stat='identity',alpha=0.7,show.legend = FALSE)+
   theme_minimal()+
