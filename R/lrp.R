@@ -50,7 +50,7 @@ resuh1<-as.data.frame(resuh1)
 
   resuh=matrix(ncol=nrow(tab),nrow=ncol(train))
   for(j in 1:nrow(tab)){
-    nodeR<-resuh1[j]
+    nodeR<-resuh1[j,]
     nodepoids<-poidsinput[,j]
 
     sumpoids<-sum(nodepoids)
