@@ -57,6 +57,7 @@ resuh1<-as.data.frame(resuh1)
     for(i in 1:ncol(train)){
       resuh[i,j]=nodeR*(nodepoids[j]/sumpoids)
     }}
+  resuh<-as.data.frame(resuh)
   rownames(resuh)=rownames(poidsinput)
   resuh1 <- data.frame(names = row.names(resuh1), resuh1)
 relevance<-resuh1
