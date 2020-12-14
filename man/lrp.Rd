@@ -6,12 +6,14 @@
 Représentation d'une couche caché
 Les fléches correspondent à la distribution de 50\% de la relevance}
 \usage{
-lrp(relevance, resuh)
+lrp(test, model, individu)
 }
 \arguments{
-\item{relevance}{une matrice contenant les valeurs de relevance des neurones}
+\item{test}{une matrice de données test}
 
-\item{resuh}{une matrice contenant la relevance pour chacune des variables}
+\item{model}{modele keras utilisé}
+
+\item{individu}{le numéro de l'individu qu'on veut tester}
 }
 \value{
 un graphique de couche cachées

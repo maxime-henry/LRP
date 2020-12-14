@@ -1,8 +1,9 @@
 #' Représentation graphique de la relevance
 #' Représentation d'une couche caché
 #' Les fléches correspondent à la distribution de 50% de la relevance
-#' @param relevance une matrice contenant les valeurs de relevance des neurones
-#' @param resuh une matrice contenant la relevance pour chacune des variables
+#' @param test une matrice de données test
+#' @param individu le numéro de l'individu qu'on veut tester
+#' @param model modele keras utilisé
 #'
 #' @import ggplot2
 #' @import tidyr
@@ -15,7 +16,48 @@
 
 
 
-lrp<-function(relevance,resuh){
+lrp<-function(test,model,individu){
+
+
+  intermediate_layer_model <- keras_model(inputs = model$input,outputs = get_layer(model,index=1)$output)
+
+  tab<-predict(intermediate_layer_model, as.matrix(test[individu,]))
+
+  tab=t(tab)
+
+  poidsinput <- model$weights[[1]]
+  poidsinput <- as.data.frame(as.matrix(poidsinput))
+  rownames(poidsinput) <- colnames(data_matrix[,-ncol(test)])
+
+  poidsoutput <- model$weights[[3]]
+  poidsoutput <- as.data.frame(as.matrix(poidsoutput))
+
+  noeud1<-sum(poidsoutput[,1]*tab)
+  noeud2<-sum(poidsoutput[,2]*tab)
+
+  poidsoutput[poidsoutput<0]<-0
+  poidsinput[poidsinput<0]<-0
+
+  poidsoutput2sum=sum(poidsoutput[,2])
+
+
+  resuh1=matrix(ncol=1,nrow=nrow(tab))
+  for(i in 1:nrow(tab)){
+    resuh1[i]=noeud2(poidsoutput[i,2]/poidsoutput2sum)
+  }
+
+  resuh=matrix(ncol=nrow(tab),nrow=ncol(train))
+  for(j in 1:nrow(tab)){
+    nodeR<-resuh1[j]
+    nodepoids<-poidsinput[,j]
+
+    sumpoids<-sum(nodepoids)
+    for(i in 1:ncol(train)){
+      resuh[i,j]=nodeR(nodepoids[i]/sumpoids)
+    }}
+  rownames(resuh)=rownames(poidsinput)
+
+relevance=resuh1
   relevance %>% ggplot(aes(y=as.numeric(names))) + geom_point(aes(x=V1-V1,color=-V1,size=6),stat='identity',alpha=0.7,show.legend = FALSE)+
   theme_minimal()+
     theme(axis.title.x=element_blank(),axis.text.x=element_blank(),axis.text.y=element_blank(),axis.ticks.x=element_blank(),axis.title.y = element_blank())+
