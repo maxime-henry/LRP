@@ -12,6 +12,7 @@
 #' @import dplyr
 #' @import scales
 #' @import keras
+#' @import stats
 #' @return un graphique de couche cachées
 #' @export
 
@@ -67,6 +68,8 @@ relevance<-resuh1
     theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),axis.ticks.y =element_blank())+
     guides(fill=FALSE)+scale_y_continuous(trans = "reverse")+
     geom_point(aes(x=0.8,y=(nrow(relevance)/2)),size=6)+xlim(-1,1)+
+    geom_point(aes(x=0.8,y=(nrow(relevance)/2-2)),size=6)+
+    annotate(geom='text',x=0.85,y=(nrow(relevance)/2)-4.5,label=paste('Relevance = ',round(-sum(relevance$V1),2)))+
     annotate(geom='text',x=0.85,y=(nrow(relevance)/2)+2.5,label=paste('Relevance = ',round(sum(relevance$V1),1)))->legraph
 
 relevance %>% mutate(alpha=rescale(V1))->certainesfleches
@@ -95,12 +98,10 @@ for(i in 1:nrow(resuh1)){
   as.data.frame(resuh) %>% mutate(var=rownames(resuh)) %>% slice_max(order_by = resuh[,i],n=1) ->variablelocale
 legraph<-legraph+annotate(geom='segment',x = -0.1, y =i , yend = i, xend = -0.5,alpha=alph[i,1],size=1, arrow = arrow(length = unit(0.3, "cm")))
 legraph<-legraph+annotate(geom='text',x=-0.8,y=i,label=variablelocale[1,'var'],alpha=alph[i,1])
-
-print(variablelocale )
 }
 
 
-return(legraph,resuh)
+return(legraph)
 }
 
 
